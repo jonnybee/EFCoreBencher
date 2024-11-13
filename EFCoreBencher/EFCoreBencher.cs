@@ -24,7 +24,6 @@ public class EFCoreBencher
 
         _factory = new PooledDbContextFactory<AdventureWorksContext>(options);
         using var ctx = _factory.CreateDbContext();
-        ctx.Database.CanConnect(); 
     }
 
     [Benchmark()]
