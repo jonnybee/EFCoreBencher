@@ -3,37 +3,34 @@
 using System;
 using System.Collections.Generic;
 
-namespace EFCoreBenchmark.Entities
+namespace EFCoreBenchmark.Entities;
+
+/// <summary>
+/// Cross-reference table mapping products to special offer discounts.
+/// </summary>
+public partial class SpecialOfferProduct
 {
     /// <summary>
-    /// Cross-reference table mapping products to special offer discounts.
+    /// Primary key for SpecialOfferProduct records.
     /// </summary>
-    public partial class SpecialOfferProduct
-    {
-        public SpecialOfferProduct()
-        {
-            SalesOrderDetails = new HashSet<SalesOrderDetail>();
-        }
+    public int SpecialOfferId { get; set; }
 
-        /// <summary>
-        /// Primary key for SpecialOfferProduct records.
-        /// </summary>
-        public int SpecialOfferId { get; set; }
-        /// <summary>
-        /// Product identification number. Foreign key to Product.ProductID.
-        /// </summary>
-        public int ProductId { get; set; }
-        /// <summary>
-        /// ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.
-        /// </summary>
-        public Guid Rowguid { get; set; }
-        /// <summary>
-        /// Date and time the record was last updated.
-        /// </summary>
-        public DateTime ModifiedDate { get; set; }
+    /// <summary>
+    /// Product identification number. Foreign key to Product.ProductID.
+    /// </summary>
+    public int ProductId { get; set; }
 
-        public virtual Product Product { get; set; }
-        public virtual SpecialOffer SpecialOffer { get; set; }
-        public virtual ICollection<SalesOrderDetail> SalesOrderDetails { get; set; }
-    }
+    /// <summary>
+    /// ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.
+    /// </summary>
+    public Guid Rowguid { get; set; }
+
+    /// <summary>
+    /// Date and time the record was last updated.
+    /// </summary>
+    public DateTime ModifiedDate { get; set; }
+
+    public virtual ICollection<SalesOrderDetail> SalesOrderDetails { get; set; } = new List<SalesOrderDetail>();
+
+    public virtual SpecialOffer SpecialOffer { get; set; }
 }

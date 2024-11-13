@@ -3,35 +3,31 @@
 using System;
 using System.Collections.Generic;
 
-namespace EFCoreBenchmark.Entities
+namespace EFCoreBenchmark.Entities;
+
+/// <summary>
+/// Lookup table containing standard ISO currencies.
+/// </summary>
+public partial class Currency
 {
     /// <summary>
-    /// Lookup table containing standard ISO currencies.
+    /// The ISO code for the Currency.
     /// </summary>
-    public partial class Currency
-    {
-        public Currency()
-        {
-            CountryRegionCurrencies = new HashSet<CountryRegionCurrency>();
-            CurrencyRateFromCurrencyCodeNavigations = new HashSet<CurrencyRate>();
-            CurrencyRateToCurrencyCodeNavigations = new HashSet<CurrencyRate>();
-        }
+    public string CurrencyCode { get; set; }
 
-        /// <summary>
-        /// The ISO code for the Currency.
-        /// </summary>
-        public string CurrencyCode { get; set; }
-        /// <summary>
-        /// Currency name.
-        /// </summary>
-        public string Name { get; set; }
-        /// <summary>
-        /// Date and time the record was last updated.
-        /// </summary>
-        public DateTime ModifiedDate { get; set; }
+    /// <summary>
+    /// Currency name.
+    /// </summary>
+    public string Name { get; set; }
 
-        public virtual ICollection<CountryRegionCurrency> CountryRegionCurrencies { get; set; }
-        public virtual ICollection<CurrencyRate> CurrencyRateFromCurrencyCodeNavigations { get; set; }
-        public virtual ICollection<CurrencyRate> CurrencyRateToCurrencyCodeNavigations { get; set; }
-    }
+    /// <summary>
+    /// Date and time the record was last updated.
+    /// </summary>
+    public DateTime ModifiedDate { get; set; }
+
+    public virtual ICollection<CountryRegionCurrency> CountryRegionCurrencies { get; set; } = new List<CountryRegionCurrency>();
+
+    public virtual ICollection<CurrencyRate> CurrencyRateFromCurrencyCodeNavigations { get; set; } = new List<CurrencyRate>();
+
+    public virtual ICollection<CurrencyRate> CurrencyRateToCurrencyCodeNavigations { get; set; } = new List<CurrencyRate>();
 }

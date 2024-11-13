@@ -3,35 +3,32 @@
 using System;
 using System.Collections.Generic;
 
-namespace EFCoreBenchmark.Entities
+namespace EFCoreBenchmark.Entities;
+
+/// <summary>
+/// Lookup table of customer purchase reasons.
+/// </summary>
+public partial class SalesReason
 {
     /// <summary>
-    /// Lookup table of customer purchase reasons.
+    /// Primary key for SalesReason records.
     /// </summary>
-    public partial class SalesReason
-    {
-        public SalesReason()
-        {
-            SalesOrderHeaderSalesReasons = new HashSet<SalesOrderHeaderSalesReason>();
-        }
+    public int SalesReasonId { get; set; }
 
-        /// <summary>
-        /// Primary key for SalesReason records.
-        /// </summary>
-        public int SalesReasonId { get; set; }
-        /// <summary>
-        /// Sales reason description.
-        /// </summary>
-        public string Name { get; set; }
-        /// <summary>
-        /// Category the sales reason belongs to.
-        /// </summary>
-        public string ReasonType { get; set; }
-        /// <summary>
-        /// Date and time the record was last updated.
-        /// </summary>
-        public DateTime ModifiedDate { get; set; }
+    /// <summary>
+    /// Sales reason description.
+    /// </summary>
+    public string Name { get; set; }
 
-        public virtual ICollection<SalesOrderHeaderSalesReason> SalesOrderHeaderSalesReasons { get; set; }
-    }
+    /// <summary>
+    /// Category the sales reason belongs to.
+    /// </summary>
+    public string ReasonType { get; set; }
+
+    /// <summary>
+    /// Date and time the record was last updated.
+    /// </summary>
+    public DateTime ModifiedDate { get; set; }
+
+    public virtual ICollection<SalesOrderHeaderSalesReason> SalesOrderHeaderSalesReasons { get; set; } = new List<SalesOrderHeaderSalesReason>();
 }
