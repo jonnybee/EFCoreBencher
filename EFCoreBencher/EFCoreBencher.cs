@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace EFCoreBenchmark;
 
@@ -23,6 +24,7 @@ public class EFCoreBencher
 
         _factory = new PooledDbContextFactory<AdventureWorksContext>(options);
         using var ctx = _factory.CreateDbContext();
+        ctx.Database.CanConnect(); 
     }
 
     [Benchmark()]
@@ -34,5 +36,16 @@ public class EFCoreBencher
             .Include(p => p.Customer)
             .Include(p => p.SalesOrderDetails)
             .ToList();
+    }   
+
+    [Benchmark()]
+    public async Task<List<SalesOrderHeader>> LoadSalesOrderHeadersAsync()
+    {
+        await using var ctx = _factory.CreateDbContext();
+        return await ctx.SalesOrderHeaders.AsNoTracking()
+            .Where(p => p.SalesOrderId > 50000 && p.SalesOrderId <= 50300)
+            .Include(p => p.Customer)
+            .Include(p => p.SalesOrderDetails)
+            .ToListAsync();
     }   
 }
