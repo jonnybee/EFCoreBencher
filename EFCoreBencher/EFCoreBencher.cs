@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 namespace EFCoreBenchmark;
 
 [MemoryDiagnoser]
+[SimpleJob(RuntimeMoniker.Net80, baseline:true)]
+[SimpleJob(RuntimeMoniker.Net90)]
 public class EFCoreBencher
 {
     private static PooledDbContextFactory<AdventureWorksContext> _factory;

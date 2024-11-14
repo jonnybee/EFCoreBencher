@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "EFCoreBencher": {
+      "commandName": "Project",
+      "commandLineArgs": "--filter * --join"
+    }
+  }
+}
